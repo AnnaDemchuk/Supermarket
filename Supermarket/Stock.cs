@@ -13,12 +13,12 @@ namespace Supermarket
             stockProductList = new List<Product>();
             // name, price,  weight, daysStored
             stockProductList.Add(new Product("Jogurt", 20, 300, 3));
-            stockProductList.Add(new Product("Сroissant", 20, 100, 10));
+            stockProductList.Add(new Product("Croissant", 20, 100, 10));
             stockProductList.Add(new Product("Ice cream", 20, 100, 60));
             stockProductList.Add(new Product("Сhips", 20, 50, 30));
 
             stockProductList.Add(new Product("Milk", 25, 1000, 3));
-            stockProductList.Add(new Product("Сookies", 70, 1000, 10));
+            stockProductList.Add(new Product("Cookies", 70, 1000, 10));
             stockProductList.Add(new Product("Sausage", 190, 1000, 15));
 
             stockProductList.Add(new Product("Pizza", 150, 1500, 1));

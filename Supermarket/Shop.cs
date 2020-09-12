@@ -229,6 +229,7 @@ namespace Supermarket
                         if (productListShop[i].quantity == 0)
                         {
                             // если нет в магазине -обнуляем количество этого товара у покупателя  в списке
+                          //  productListShop.Remove(productListShop[i]);
                             buyer.buyerProductList[j].quantity = 0;
                             Console.WriteLine($"Seller: Sorry...we dont have -{buyer.buyerProductList[j].name}");
                             count++;

@@ -302,6 +302,7 @@ namespace Supermarket
                         $"_the shelf life__{productListShop[i].daysStored} days");
                     productListShop[i].quantity = 0;// удаляем продукт
 
+
                     productListShop[i].daysStored = 0; // обнулить срок хранения
                     productListShop[i].dateStartStored = new DateTime(2000, 1, 1); //обнулить дату изготовления
                 }

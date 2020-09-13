@@ -22,19 +22,20 @@ namespace Supermarket
 
         public void ShowDay()
         {
-            Console.ForegroundColor = ConsoleColor.Magenta; // Устанавливаем цвет
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\n---------------------------------------------");
             Console.WriteLine($" Welcome to our supermarket! ");
             Console.WriteLine($" Today is - {dateInShop.ToShortDateString()}  ");
             Console.WriteLine("---------------------------------------------");
-            Console.ResetColor(); // Сбрасываем в стандартный
+            Console.ResetColor();
         }
 
+        // Загрузка со склада.
         public void FirstDelivery()
         {
             ShowDay();
             Random random = new Random();
-            // Загрузка со склада.
+
             for (int i = 0; i < stock.stockProductList.Count; i++)
             {
                 productListShop.Add(new Product(stock.stockProductList[i]));
@@ -59,7 +60,13 @@ namespace Supermarket
                 Console.WriteLine("Press - 4, if you want to print statistic for 1 days");
                 Console.WriteLine("Press - 5, if you want to print product catalog shop");
                 Console.WriteLine("Press - 6, if you want to exit to admin panel");
-                Console.WriteLine("Press - 7, if you want to print stok");
+
+                // Этот метод создан для проверки
+                //Console.WriteLine("Press - 7, if you want to print stok");
+
+                // Этот метод создан для проверки
+                //Console.WriteLine("Press - 8, if you want to print  buyers list");
+
                 Console.WriteLine("--------------------------------------------------");
                 if (int.TryParse(Console.ReadLine(), out choise) == true)
                 {
@@ -84,15 +91,22 @@ namespace Supermarket
                     {
                         PrintShopProduct();
                     }
-                 
+
                     else if (choise == 6)
                     {
                         break;
                     }
-                    else if (choise == 7)
-                    {
-                        stock.PrintStock();
-                    }
+                    // Этот метод создан для проверки
+                    //else if (choise == 7)
+                    //{
+                    //    stock.PrintStock();
+                    //}
+
+                    // Этот метод создан для проверки
+                    //else if (choise == 8)
+                    //{
+                    //    PrintBuyersList();
+                    //}
                     else
                     {
                         Console.WriteLine("Incorrect input");
@@ -114,8 +128,9 @@ namespace Supermarket
         }
         public void PrintShopProduct()
         {
+            bool shelfEmpty = true;
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(" Catalog products of supermarket  \n");
+            Console.WriteLine(" Catalog products of supermarket \n");
             for (int i = 0; i < 3; i++)
             {
                 Console.WriteLine($"__________Shelf {i + 1}_________");
@@ -123,32 +138,30 @@ namespace Supermarket
                 {
                     if (item.numberShelf == i + 1)
                     {
-                        Console.WriteLine($"Shelf      : {item.numberShelf}");
-                        Console.WriteLine($"Name       : {item.name}");
-                        Console.WriteLine($"Price      : {item.price} grn");
-                        Console.WriteLine($"Quantity   : {item.quantity}");
-                      //Console.WriteLine($"Weight     : {item.weight} gr");
-                        Console.WriteLine($"Days stored: {item.daysStored} days");
-                        Console.WriteLine($"Date       : {item.dateStartStored.ToShortDateString()}");
-
-                        Console.WriteLine("------------------------");
+                        shelfEmpty=item.PrintProduct();                   
                     }
+                }
+                if (shelfEmpty==true)
+                {
+                    Console.WriteLine($"Shelf is empty");
+                    shelfEmpty = false;
                 }
             }
             Console.WriteLine("_____________________________");
             Console.ResetColor();
         }
 
+
         public Buyer CreateListProductForOneBuyer()
         {
             Buyer buyer = new Buyer();
-            int myProductList = 3;// В списке у каждого покупателя 3 товара
+            int myProductList = 3;// В списке у каждого покупателя 3 товара.
             Random random = new Random();
             int index;
             for (int i = 0; i < myProductList; i++)
             {
                 index = random.Next(0, stock.stockProductList.Count);
-                buyer.buyerProductList.Add(new Product(stock.stockProductList[index]));///изм.1
+                buyer.buyerProductList.Add(new Product(stock.stockProductList[index]));
             }
             return buyer;
         }
@@ -183,18 +196,18 @@ namespace Supermarket
         public void CreateBuyer()
         {
             Buyer buyer = new Buyer();
-            buyer = CreateListProductForOneBuyer(); // Заполнение продуктами списка 
+            buyer = CreateListProductForOneBuyer(); // Заполнение продуктами списка. 
             BuyProduct(buyer);
         }
 
-        //процесс покупки общий для всех что для 1покупателя  что для очереди
+        // Процесс покупки общий для всех что для 1 покупателя  что для очереди.
         public void BuyProduct(Buyer buyer)
         {
             {
-                // все продукты из списка покупателей есть в магазине
+                // Проверка все ли продукты из списка покупателей есть в магазине.
                 if (EmptyReceipt(buyer) == false)
                 {
-                    //проверка хватит ли денег у покупателя
+                    // Проверка хватит ли денег у покупателя.
                     if (buyer.CheckSumma() == true)
                     {
                         DeleteProduct(buyer);
@@ -205,7 +218,7 @@ namespace Supermarket
                         buyerList.Add(buyer);
                     }
 
-                    // добавление +1 день если прошло 2 покупателя    
+                    // Добавление +1 день если прошло 2 покупателя с покупками.    
                     if (buyerList.Count % 2 == 0 && buyerList.Count != 0)
                     {
                         DataAdd(1);
@@ -228,8 +241,6 @@ namespace Supermarket
                     {
                         if (productListShop[i].quantity == 0)
                         {
-                            // если нет в магазине -обнуляем количество этого товара у покупателя  в списке
-                          //  productListShop.Remove(productListShop[i]);
                             buyer.buyerProductList[j].quantity = 0;
                             Console.WriteLine($"Seller: Sorry...we dont have -{buyer.buyerProductList[j].name}");
                             count++;
@@ -253,21 +264,23 @@ namespace Supermarket
             {
                 for (int j = 0; j < buyer.buyerProductList.Count; j++)
                 {
-                    if (productListShop[i].name == buyer.buyerProductList[j].name && buyer.buyerProductList[j].quantity != 0)
+                    if (productListShop[i].name == buyer.buyerProductList[j].name && productListShop[i].quantity != 0 && buyer.buyerProductList[j].quantity != 0)
                     {
                         productListShop[i].quantity = productListShop[i].quantity - buyer.buyerProductList[j].quantity;
                         Console.WriteLine($"We sell product -{productListShop[i].name}");
                     }
+
+                    // Если товар 1 штука в магазине, а у клиента 2 или 3 одинаковых позиции.
                     else if (productListShop[i].name == buyer.buyerProductList[j].name && productListShop[i].quantity == 0 && buyer.buyerProductList[j].quantity != 0)
                     {
                         buyer.buyerProductList[j].quantity = 0;
-                        //товар 1 штука в магазине, в у клиента 2 или 3 одинаковых позиции
                     }
+
+                    // Если списался последний продукт этой категории.
                     else if (productListShop[i].quantity == 0)
                     {
-                        //если списался последний продукт этой категории
-                        productListShop[i].daysStored = 0; // обнулить срок хранения
-                        productListShop[i].dateStartStored = new DateTime(2000, 1, 1); //обнулить дату изготовления
+                        productListShop[i].daysStored = 0; // Обнулить срок хранения
+                        productListShop[i].dateStartStored = new DateTime(2000, 1, 1); //Обнулить дату изготовления
                     }
                 }
             }
@@ -291,20 +304,25 @@ namespace Supermarket
 
         public void Inventory()
         {
+            bool emptyList = true;
             Console.WriteLine("----------------------");
             Console.WriteLine($"Inventory report {dateInShop.ToShortDateString()} \n");
             for (int i = 0; i < productListShop.Count; i++)
             {
-                if (productListShop[i].dateStartStored.AddDays(productListShop[i].daysStored) <= dateInShop && productListShop[i].daysStored!=0)
+                if (productListShop[i].dateStartStored.AddDays(productListShop[i].daysStored) <= dateInShop && productListShop[i].daysStored != 0)
                 {
                     Console.WriteLine($"We delete { productListShop[i].name}" +
                         $"_made___{productListShop[i].dateStartStored.ToShortDateString()}" +
                         $"_the shelf life__{productListShop[i].daysStored} days");
-                    productListShop[i].quantity = 0;// удаляем продукт
-
-                    productListShop[i].daysStored = 0; // обнулить срок хранения
-                    productListShop[i].dateStartStored = new DateTime(2000, 1, 1); //обнулить дату изготовления
+                    productListShop[i].quantity = 0;// Обнулить количество
+                    productListShop[i].daysStored = 0; // Обнулить срок хранения
+                    productListShop[i].dateStartStored = new DateTime(2000, 1, 1); // Обнулить дату изготовления
+                    emptyList = false;
                 }
+            }
+            if (emptyList == true)
+            {
+                Console.WriteLine($"Today all products are fresh (this day without invetory)");
             }
             Console.WriteLine("----------------------");
         }
@@ -319,7 +337,7 @@ namespace Supermarket
 
             if (count == 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red; // устанавливаем цвет
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\nWe sell all products");
                 Console.WriteLine($"Start delivery from stock\n");
 
@@ -330,6 +348,16 @@ namespace Supermarket
             else
             {
                 Console.WriteLine($"Shop not empty - left {count} product\n");
+            }
+        }
+
+        public void PrintBuyersList()
+        {
+            for (int i = 0; i < buyerList.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. Buyer");
+                buyerList[i].PrintBuyers();
+                Console.WriteLine("");
             }
         }
     }

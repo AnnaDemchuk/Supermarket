@@ -74,12 +74,22 @@ namespace Supermarket
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red; // устанавливаем цвет
+                Console.ForegroundColor = ConsoleColor.Red; 
                 Console.WriteLine($" Customer: I have only {purse} grn");
                 Console.WriteLine(" Seller: You haven't got enought money for buy this list of products");
-                Console.ResetColor(); // сбрасываем в стандартный
+                Console.ResetColor(); 
             }
             return hasMoney;
+        }
+
+
+        // Этот метод создан для проверки
+        public void PrintBuyers()
+        {        
+            for (int i = 0; i < buyerProductList.Count; i++)
+            {
+                Console.WriteLine($"{buyerProductList[i].name} :{buyerProductList[i].quantity}");         
+            }        
         }
     }
 }

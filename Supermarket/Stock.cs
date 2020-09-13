@@ -15,7 +15,7 @@ namespace Supermarket
             stockProductList.Add(new Product("Jogurt", 20, 300, 3));
             stockProductList.Add(new Product("Croissant", 20, 100, 10));
             stockProductList.Add(new Product("Ice cream", 20, 100, 60));
-            stockProductList.Add(new Product("Сhips", 20, 50, 30));
+            stockProductList.Add(new Product("Chips", 20, 50, 30));
 
             stockProductList.Add(new Product("Milk", 25, 1000, 3));
             stockProductList.Add(new Product("Cookies", 70, 1000, 10));
@@ -26,6 +26,7 @@ namespace Supermarket
             stockProductList.Add(new Product("Flour", 30, 2000, 60));
         }
 
+        // Этот метод создан для проверки.
         public void PrintStock ()
         {
             Console.WriteLine("--List product in stock---");

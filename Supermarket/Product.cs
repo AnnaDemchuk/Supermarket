@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Supermarket
 {
-    public class Product 
+    public class Product
     {
         public string name;
         public int price;
@@ -61,7 +61,21 @@ namespace Supermarket
             this.dateStartStored = p.dateStartStored;
         }
 
-  
 
+        public void PrintProduct()
+        {
+            if (quantity != 0)
+            {
+                Console.WriteLine($"Shelf      : {numberShelf}");
+                Console.WriteLine($"Name       : {name}");
+                Console.WriteLine($"Price      : {price} grn");
+                Console.WriteLine($"Quantity   : {quantity}");
+                //Console.WriteLine($"Weight     : {weight} gr");
+                Console.WriteLine($"Days stored: {daysStored} days");
+                Console.WriteLine($"Date       : {dateStartStored.ToShortDateString()}");
+
+                Console.WriteLine("------------------------");
+            }
+        }
     }
 }

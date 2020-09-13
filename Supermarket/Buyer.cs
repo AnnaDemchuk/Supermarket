@@ -81,5 +81,13 @@ namespace Supermarket
             }
             return hasMoney;
         }
+
+        public void PrintBuyers()
+        {        
+            for (int i = 0; i < buyerProductList.Count; i++)
+            {
+                Console.WriteLine($"{buyerProductList[i].name} :{buyerProductList[i].quantity}");         
+            }        
+        }
     }
 }

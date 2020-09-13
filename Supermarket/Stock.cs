@@ -26,6 +26,7 @@ namespace Supermarket
             stockProductList.Add(new Product("Flour", 30, 2000, 60));
         }
 
+        // Этот метод создан для проверки.
         public void PrintStock ()
         {
             Console.WriteLine("--List product in stock---");

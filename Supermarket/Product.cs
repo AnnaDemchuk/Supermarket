@@ -10,7 +10,7 @@ namespace Supermarket
         public int price;
         public int quantity;
 
-        // Вес продуктв в граммах, нужен для полок.
+        // Вес продукта в граммах, нужен для полок.
         public int weight;
 
         // Номер полки - зависит от веса продукта.
@@ -62,8 +62,9 @@ namespace Supermarket
         }
 
 
-        public void PrintProduct()
+        public bool PrintProduct()
         {
+            bool empty = true;
             if (quantity != 0)
             {
                 Console.WriteLine($"Shelf      : {numberShelf}");
@@ -73,9 +74,10 @@ namespace Supermarket
                 //Console.WriteLine($"Weight     : {weight} gr");
                 Console.WriteLine($"Days stored: {daysStored} days");
                 Console.WriteLine($"Date       : {dateStartStored.ToShortDateString()}");
-
                 Console.WriteLine("------------------------");
+                empty = false;
             }
+            return empty;
         }
     }
 }

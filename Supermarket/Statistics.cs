@@ -33,7 +33,6 @@ namespace Supermarket
         public void AskStatisticDay()
         {
             DateTime dtOut;
-            DateTime time = DateTime.Now;
             Console.WriteLine("-----------------------");
 
             Console.WriteLine("Input date in format like: {0:d}", new DateTime(2008, 1, 7));
@@ -61,7 +60,7 @@ namespace Supermarket
             }
 
 
-            if (existDate==true)
+            if (existDate == true)
             {
                 Console.WriteLine($"\tStatistic for {dtOut.ToShortDateString()}");
                 for (int i = 0; i < statisticList.Count; i++)
@@ -82,7 +81,6 @@ namespace Supermarket
             {
                 Console.WriteLine($"Not information for {dtOut.ToShortDateString()}");
             }
-           
             Console.WriteLine("-----------------------");
         }
     }
